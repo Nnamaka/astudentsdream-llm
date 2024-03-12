@@ -4,5 +4,5 @@ app = FastAPI()
 
 @app.get("/")
 def root():
-    return {"message": "working live"}
+    return {"astudentsdream llm": "underconstruction 🚧"}
 
