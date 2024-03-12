@@ -2,6 +2,7 @@ import os
 import boto3
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from transformers import AutoTokenizer, AutoModelForCausalLM
 
 load_dotenv()
 app = FastAPI()
@@ -17,6 +18,15 @@ except:
 
 s3_bucket_name = "astudentsdreamllm"
 
+model_name = "google/gemma-7b"
+
+# Download the model and tokenizer (if necessary) to your local machine
+print("downloading model...😎")
+model = AutoModelForCausalLM.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+print("saving the model locally")
+model.save_pretrained("my_model")
 
 
 @app.get("/")
