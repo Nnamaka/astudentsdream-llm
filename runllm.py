@@ -19,15 +19,26 @@ except:
 
 s3_bucket_name = "astudentsdreamllm"
 
-model_name = "google/gemma-7b"
+model_name = "google/gemma-2b"
 
 # Download the model and tokenizer (if necessary) to your local machine
 print("downloading model...😎")
 model = AutoModelForCausalLM.from_pretrained(model_name,use_auth_token=access_token)
 tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=access_token)
 
-print("saving the model locally")
-model.save_pretrained("my_model")
+#print("saving the model locally")
+
+#save_path = os.path.join(os.getcwd(), "gamma_model")
+#model.save_pretrained(save_path)
+#tokenizer.save_pretrained(save_path)
+
+#for root, _, files in os.walk(save_path):
+#    for filename in files:
+#      local_path = os.path.join(root, filename)
+#      s3_path = os.path.relpath(local_path, save_path)
+#      s3.upload_file(local_path, s3_bucket_name, s3_path)
+
+#s3.upload_file(filename, s3_bucket_name, filename)
 
 
 @app.get("/")
