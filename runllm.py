@@ -31,7 +31,7 @@ model_files = ['config.json', 'generation_config.json', 'model-00001-of-00003.sa
 model_folder_name = "gamma_model"
 current_dir = os.getcwd()
 save_path = os.path.join(current_dir, model_folder_name)
-
+os.makedirs(save_path)
 
 if os.path.exists(save_path) and os.listdir(save_path) :
     pass
@@ -40,8 +40,8 @@ else :
         save_here = os.path.join(save_path, file)
         s3.download_file(s3_bucket_name, file, save_path)
 
-model = AutoModelForCausalLM.from_pretrained(save_path + '/')
-tokenizer = AutoTokenizer.from_pretrained(save_path + '/')
+model = AutoModelForCausalLM.from_pretrained(save_path )
+tokenizer = AutoTokenizer.from_pretrained(save_path)
 
 
 # saving the model
