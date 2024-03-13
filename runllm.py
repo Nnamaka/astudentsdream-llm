@@ -38,7 +38,7 @@ if os.path.exists(save_path) and os.listdir(save_path) :
 else :
     for file in model_files:
         save_here = os.path.join(save_path, file)
-        s3.download_file(s3_bucket_name, file, save_path)
+        s3.download_file(s3_bucket_name, file, save_here)
 
 model = AutoModelForCausalLM.from_pretrained(save_path )
 tokenizer = AutoTokenizer.from_pretrained(save_path)
