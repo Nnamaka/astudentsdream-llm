@@ -40,8 +40,8 @@ else :
         save_here = os.path.join(save_path, file)
         s3.download_file(s3_bucket_name, file, save_path)
 
-model = AutoModelForCausalLM.from_pretrained(save_path)
-tokenizer = AutoTokenizer.from_pretrained(save_path)
+model = AutoModelForCausalLM.from_pretrained(save_path + '/')
+tokenizer = AutoTokenizer.from_pretrained(save_path + '/')
 
 
 # saving the model
