@@ -24,9 +24,9 @@ model_files = ['config.json', 'generation_config.json', 'model-00001-of-00003.sa
               'tokenizer.json']
 
 # Download the model and tokenizer (if necessary) to your local machine
-print("downloading model...😎")
-model = AutoModelForCausalLM.from_pretrained(model_name,use_auth_token=access_token)
-tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=access_token)
+#print("downloading model...😎")
+#model = AutoModelForCausalLM.from_pretrained(model_name,use_auth_token=access_token)
+#tokenizer = AutoTokenizer.from_pretrained(model_name, use_auth_token=access_token)
 
 model_folder_name = "gamma_model"
 current_dir = os.getcwd()
