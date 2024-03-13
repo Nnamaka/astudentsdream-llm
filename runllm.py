@@ -62,12 +62,13 @@ tokenizer = AutoTokenizer.from_pretrained(save_path)
 def generate_answer(question):
   inputs = tokenizer(question, return_tensors="pt")  # Tokenize the question
   output = model.generate(**inputs)  # Generate response using the model
-  decoded_response = tokenizer.decode(output[0], skip_special_tokens=True)  # Decode the generated tokens
+  decoded_response = tokenizer.decode(output[0])  # Decode the generated tokens
   return decoded_response
 
 @app.get("/")
 def root(question: str):
     try:
+        print(question)
         answer = generate_answer(question)
         return {"question": question, "answer": answer}
     except Exception as e:
