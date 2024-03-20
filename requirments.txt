@@ -3,3 +3,6 @@ boto3
 uvicorn
 python-dotenv
 fastapi
+langchain-community
+langchain
+langchain-core
