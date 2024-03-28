@@ -9,6 +9,9 @@ sudo apt install nginx -y
 # download ollama
 curl -fsSL https://ollama.com/install.sh | sh
 
+# download gemma 2:2b
+ollama pull gemma:2b
+
 # create python environment
 sudo apt install python3-venv -y
 python3 -m venv llm-env
