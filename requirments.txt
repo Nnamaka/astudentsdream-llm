@@ -6,3 +6,4 @@ fastapi
 langchain-community
 langchain
 langchain-core
+ollama
