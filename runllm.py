@@ -1,9 +1,11 @@
 import os
 import boto3
+import ollama
 import redis
 from dotenv import load_dotenv
+from utils import get_chat_history, add_chat_history, add_first_response
 from fastapi import FastAPI
-from redis_test import r
+from redis_test import r, system_prompt
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 load_dotenv()
@@ -14,6 +16,8 @@ try:
         print("Loaded Redis client successfully✅")
 except redis.RedisError as e:
     print("Redis error:", e)
+
+
 # model_name = "google/gemma-2b"
 # s3_bucket_name = "astudentsdreamllm"
 # aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -85,11 +89,37 @@ def generate_answer(question):
    return response['message']['content']
 
 @app.get("/")
-def root(question: str):
+def root(username: str, query: str):
     try:
-        print(question)
-        answer = generate_answer(question)
-        return {"question": question, "answer": answer}
+        messages = []
+        messages.append(system_prompt)
+
+        user_query = {
+            
+            'role':'user',
+            'content': f""" {query}""",
+        }
+
+        # check if user exists
+        exists = r.exists(f'user:{username}')
+
+        if exists:
+            chat_history = get_chat_history(username=username, r=r)
+            chat_history.append(user_query)
+
+
+            response = ollama.chat(model='gemma:2b', messages=chat_history)
+            add_chat_history(username=username, user_query=user_query,response=response, r=r)
+            return {'response' : response}
+        
+        else :
+            add_chat_history(username=username, user_query=user_query, response=messages, r=r, role='system')
+            chat_history = get_chat_history(username=username, r=r)
+
+            response = ollama.chat(model='gemma:2b', messages=chat_history)
+            add_first_response(username=username, response=response, r=r)
+            return {'response': response}
+        
     except Exception as e:
         return {"error": str(e)} 
     
