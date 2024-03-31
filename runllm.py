@@ -1,12 +1,19 @@
 import os
 import boto3
+import redis
 from dotenv import load_dotenv
 from fastapi import FastAPI
+from redis_test import r
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
 load_dotenv()
 app = FastAPI()
 
+try:
+    if r.ping():
+        print("Loaded Redis client successfully✅")
+except redis.RedisError as e:
+    print("Redis error:", e)
 # model_name = "google/gemma-2b"
 # s3_bucket_name = "astudentsdreamllm"
 # aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -86,7 +93,7 @@ def root(question: str):
     except Exception as e:
         return {"error": str(e)} 
     
-    
+
 
 
 
