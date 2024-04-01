@@ -25,8 +25,7 @@ public_ip=$(curl -s ifconfig.me)
 
 sed -i "s/<public ip address>/$public_ip/" servellm_nginx
 
-sudo service nginx restart
-cd
+sudo service nginx restart && cd ~/astudentsdream-llm/
 
 # download ollama
 curl -fsSL https://ollama.com/install.sh | sh
