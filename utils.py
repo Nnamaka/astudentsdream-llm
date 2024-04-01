@@ -3,7 +3,7 @@ import time
 
 def get_chat_history(username, r):
   messages = []
-  for message_json, _ in r.zrangebyscore(f'user:{username}', min=0, max='+inf'):
+  for message_json in r.zrangebyscore(f'user:{username}', min=0, max='+inf'):
     messages.append(json.loads(message_json))
   return messages
 
