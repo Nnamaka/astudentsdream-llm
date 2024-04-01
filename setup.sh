@@ -28,10 +28,7 @@ sed -i "s/<public ip address>/$public_ip/" servellm_nginx
 sudo sudo service nginx restart && cd ~/astudentsdream-llm/
 
 # download ollama
-curl -fsSL https://ollama.com/install.sh | sh
-
-# download gemma 2:2b
-ollama pull gemma:2b
+curl -fsSL https://ollama.com/install.sh | sh && ollama pull gemma:2b
 
 # create python environment and activate environment
 # REMOVE: 2
