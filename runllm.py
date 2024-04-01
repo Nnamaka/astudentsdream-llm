@@ -113,9 +113,10 @@ def root(username: str, query: str):
             return {'response' : response}
         
         else :
+            print("user does not exist 🙄")
             add_chat_history(username=username, user_query=user_query, response=messages, r=r, role='system')
             chat_history = get_chat_history(username=username, r=r)
-            print("user does not exist 🙄")
+            
             response = ollama.chat(model='gemma:2b', messages=chat_history)
             add_first_response(username=username, response=response, r=r)
             return {'response': response}
