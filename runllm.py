@@ -102,7 +102,7 @@ def root(username: str, query: str):
 
         # check if user exists
         exists = r.exists(f'user:{username}')
-
+        print("checking if user exist 🙄")
         if exists:
             chat_history = get_chat_history(username=username, r=r)
             chat_history.append(user_query)
