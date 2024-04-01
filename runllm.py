@@ -88,7 +88,7 @@ def generate_answer(question):
   # return decoded_response 
    return response['message']['content']
 
-@app.get("/")
+@app.get("/llm")
 def root(username: str, query: str):
     try:
         messages = []
@@ -123,7 +123,9 @@ def root(username: str, query: str):
     except Exception as e:
         return {"error": str(e)} 
     
-
+@app.get('/')
+def health_check():
+    return 'server running🐱‍👤'
 
 
 
