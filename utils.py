@@ -8,10 +8,12 @@ def get_chat_history(username, r):
   return messages
 
 def add_chat_history(username,user_query, response, r, role='assistant'):
+  print("not caught 1 here🤖")
   user_query['timestamp'] = int(time.time())
+  print("not caught 2 here🤖")
   llm_response = {'role': role, 'content': f'{response}', 'timestamp': int(time.time())}
 
-  print("not caught here🤖")
+  
   user_query_json = {json.dumps(user_query): user_query['timestamp']}
   llm_response_json = {json.dumps(llm_response): llm_response['timestamp']}
 
