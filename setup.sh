@@ -10,7 +10,9 @@ git config --global user.email "nnamaka7@gmail.com"
 sudo apt-get update
 sudo apt install nginx -y
 
-cd /etc/nginx/sites-enabled/
+cd /etc/nginx/sites-enabled/ 
+
+public_ip=$(curl -s ifconfig.me)
 text="server {
   listen 80;
   server_name <public ip address>;
@@ -21,11 +23,9 @@ text="server {
 
 sudo tee servellm_nginx <<< "$text" >/dev/null 2>&1
 
-public_ip=$(curl -s ifconfig.me)
-
 sed -i "s/<public ip address>/$public_ip/" servellm_nginx
 
-sudo service nginx restart && cd ~/astudentsdream-llm/
+sudo sudo service nginx restart && cd ~/astudentsdream-llm/
 
 # download ollama
 curl -fsSL https://ollama.com/install.sh | sh
