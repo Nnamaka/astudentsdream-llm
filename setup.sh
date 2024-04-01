@@ -5,8 +5,28 @@
 git config --global user.name "Nnamaka"
 git config --global user.email "nnamaka7@gmail.com"
 
+
+# setup ec2 for nginx server and some deps
 sudo apt-get update
 sudo apt install nginx -y
+
+cd /etc/nginx/sites-enabled/
+text="server {
+  listen 80;
+  server_name <public ip address>;
+  location / {
+    proxy_pass http://127.0.0.1:8000;
+  }
+}"
+
+sudo tee servellm_nginx <<< "$text" >/dev/null 2>&1
+
+public_ip=$(curl -s ifconfig.me)
+
+sed -i "s/<public ip address>/$public_ip/" servellm_nginx
+
+sudo service nginx restart
+cd
 
 # download ollama
 curl -fsSL https://ollama.com/install.sh | sh
@@ -31,3 +51,5 @@ echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://pack
 sudo apt-get update
 sudo apt-get install redis -y
 
+
+echo "✅LLM server is now running on your public IP address: $public_ip"
