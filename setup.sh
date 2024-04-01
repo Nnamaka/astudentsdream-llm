@@ -23,7 +23,7 @@ text="server {
 
 sudo tee servellm_nginx <<< "$text" >/dev/null 2>&1
 
-sed -i "s/<public ip address>/$public_ip/" servellm_nginx
+sudo sed -i "s/<public ip address>/$public_ip/" servellm_nginx
 
 sudo rm default
 sudo sudo service nginx restart && cd ~/astudentsdream-llm/
